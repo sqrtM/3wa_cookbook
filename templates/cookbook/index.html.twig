@@ -7,8 +7,12 @@
 {% block body %}
     <body>
     <h1>Cookbook</h1>
+    <p>
+        <a href="/cookbook/new">
+            <button>New Recipe</button>
+        </a>
+    </p>
     <a href="/cookbook">All Recipes</a>
-
     {% for category in categories %}
         <a href="/cookbook?category={{ category.name }}">{{ category.name }}</a>
     {% endfor %}

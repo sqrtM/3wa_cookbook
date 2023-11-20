@@ -16,8 +16,13 @@
     <a href="#" id="add_step">Add a step</a>
 
     <button type="submit">Save Recipe</button>
-    <a href="/cookbook/recipe/{{ form.vars.value.id }}/delete"><button type="button">Delete Recipe</button></a>
+    <a href="/cookbook/recipe/{{ form.vars.value.id }}/delete">
+        <button type="button">Delete Recipe</button>
+    </a>
     {{ form_end(form) }}
+    <a href="/cookbook">
+        <button>return to cookbook</button>
+    </a>
 {% endblock %}
 
 {% block javascripts %}
