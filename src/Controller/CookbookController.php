@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Recipe;
 use App\Form\CommentType;
 use App\Form\RecipeType;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,8 @@ class CookbookController extends AbstractController
 {
     public function __construct(
         private readonly RecipeRepository $recipes,
-        private readonly UserRepository $users
+        private readonly UserRepository $users,
+        private readonly CategoryRepository $categories
     ) {
     }
 
@@ -28,6 +30,7 @@ class CookbookController extends AbstractController
         $recipes = $this->recipes->findAll();
         return $this->render('cookbook/index.html.twig', [
             'recipes' => $recipes,
+            'categories' => $this->categories->findAll()
         ]);
     }
 

@@ -7,21 +7,30 @@
 {% block body %}
     <body>
     <h1>Cookbook</h1>
-    <a href="/cookbook/new"><button>new recipe</button></a>
+    <a href="/cookbook">All Recipes</a>
+
+    {% for category in categories %}
+        <a href="/cookbook?category={{ category.name }}">{{ category.name }}</a>
+    {% endfor %}
+
+    {% set selectedCategoryId = app.request.query.get('category') %}
 
     {% if recipes|length > 0 %}
         <ul>
             {% for recipe in recipes %}
-                <li>
-                    <a href="/cookbook/recipe/{{ recipe.id }}">
-                        <strong>{{ recipe.title }}</strong>
-                    </a>
-                    by {{ recipe.author.username }}
+                {% set recipeCategory = recipe.category.name ?? null %}
+                {% if selectedCategoryId is null or selectedCategoryId == recipeCategory %}
+                    <li>
+                        <a href="/cookbook/recipe/{{ recipe.id }}">
+                            <strong>{{ recipe.title }}</strong>
+                        </a>
+                        by {{ recipe.author.username }}
 
-                    {% if recipe.category is not null %}
-                        - Category: {{ recipe.category.name }}
-                    {% endif %}
-                </li>
+                        {% if recipe.category is not null %}
+                            - Category: {{ recipe.category.name }}
+                        {% endif %}
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
     {% else %}
