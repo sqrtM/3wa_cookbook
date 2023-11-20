@@ -1,3 +1,5 @@
+{# templates/recipe/show.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}
@@ -16,6 +18,10 @@
         {% endfor %}
     </ol>
 
+    <a href="/cookbook/{{ recipe.id }}/edit">
+        <button>Edit</button>
+    </a>
+
     <h2>Comments:</h2>
     {% if recipe.comments|length > 0 %}
         <ul>
@@ -28,5 +34,11 @@
     {% else %}
         <p>No comments available.</p>
     {% endif %}
+
+    {{ form_start(comment_form) }}
+    {{ form_widget(comment_form) }}
+    <button type="submit">Submit Comment</button>
+    {{ form_end(comment_form) }}
+
     </body>
 {% endblock %}
