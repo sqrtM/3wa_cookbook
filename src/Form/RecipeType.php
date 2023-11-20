@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,6 +30,11 @@ class RecipeType extends AbstractType
                 'entry_type' => StepType::class,
                 'allow_add' => true,
                 'by_reference' => false,
+            ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Select a category',
             ])
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
                 $recipe = $event->getData();

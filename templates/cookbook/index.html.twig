@@ -13,8 +13,14 @@
         <ul>
             {% for recipe in recipes %}
                 <li>
-                    <a href="/cookbook/recipe/{{ recipe.id }}"><strong>{{ recipe.title }}</strong></a>
+                    <a href="/cookbook/recipe/{{ recipe.id }}">
+                        <strong>{{ recipe.title }}</strong>
+                    </a>
                     by {{ recipe.author.username }}
+
+                    {% if recipe.category is not null %}
+                        - Category: {{ recipe.category.name }}
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
