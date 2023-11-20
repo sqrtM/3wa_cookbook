@@ -7,12 +7,13 @@
 {% block body %}
     <body>
     <h1>Cookbook</h1>
+    <a href="/cookbook/new"><button>new recipe</button></a>
 
     {% if recipes|length > 0 %}
         <ul>
             {% for recipe in recipes %}
                 <li>
-                    <a href="/cookbook/{{ recipe.id }}"><strong>{{ recipe.title }}</strong></a>
+                    <a href="/cookbook/recipe/{{ recipe.id }}"><strong>{{ recipe.title }}</strong></a>
                     by {{ recipe.author.username }}
                 </li>
             {% endfor %}

@@ -31,7 +31,7 @@ class CookbookController extends AbstractController
         ]);
     }
 
-    #[Route('/cookbook/{recipeId}', name: 'app_recipe')]
+    #[Route('/cookbook/recipe/{recipeId}', name: 'app_recipe')]
     public function recipe(int $recipeId, Request $request, EntityManagerInterface $entityManager): Response
     {
         $recipe = $this->recipes->findOneBy(['id' => $recipeId]);
@@ -58,7 +58,7 @@ class CookbookController extends AbstractController
         ]);
     }
 
-    #[Route('/cookbook/{recipeId}/edit', name: 'app_edit_recipe')]
+    #[Route('/cookbook/recipe/{recipeId}/edit', name: 'app_edit_recipe')]
     public function edit(Request $request, EntityManagerInterface $entityManager, int $recipeId): Response
     {
         $recipe = $this->recipes->findOneBy(['id' => $recipeId]);
@@ -81,7 +81,7 @@ class CookbookController extends AbstractController
         ]);
     }
 
-    #[Route('/cookbook/{recipeId}/delete', name: 'app_delete_recipe')]
+    #[Route('/cookbook/recipe/{recipeId}/delete', name: 'app_delete_recipe')]
     public function delete(int $recipeId, EntityManagerInterface $entityManager): Response
     {
         $recipe = $this->recipes->findOneBy(['id' => $recipeId]);
@@ -106,7 +106,7 @@ class CookbookController extends AbstractController
             $entityManager->persist($recipe);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cookbook');
+            return $this->redirectToRoute('app_recipe', ['recipeId' => $recipe->getId()]);
         }
 
         return $this->render('cookbook/new_recipe.html.twig', [
