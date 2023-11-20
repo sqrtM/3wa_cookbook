@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create a Recipe</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.title) }}
+
+    <h2>Steps</h2>
+    <ul id="recipe_steps" data-prototype="{{ form_widget(form.steps.vars.prototype)|e }}">
+        {% for step in form.steps %}
+            <li>{{ form_row(step.content, {'id': 'step_' ~ loop.index}) }}</li>
+        {% endfor %}
+    </ul>
+    <a href="#" id="add_step">Add a step</a>
+
+    <button type="submit">Create Recipe</button>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collectionHolder = document.getElementById('recipe_steps');
+            const addStepLink = document.getElementById('add_step');
+
+            addStepLink.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const prototype = collectionHolder.getAttribute('data-prototype');
+                const index = collectionHolder.children.length;
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(prototype.replace(/__name__/g, index), 'text/html');
+                const newForm = doc.body.firstChild;
+
+                collectionHolder.appendChild(newForm);
+            });
+        });
+    </script>
+{% endblock %}

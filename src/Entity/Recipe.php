@@ -19,7 +19,7 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    #[ORM\OneToMany(mappedBy: 'associatedRecipe', targetEntity: Step::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'associatedRecipe', targetEntity: Step::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $steps;
 
     #[ORM\OneToMany(mappedBy: 'associatedRecipe', targetEntity: Comment::class, orphanRemoval: true)]

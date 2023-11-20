@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ recipe.title }} - Cookbook
+{% endblock %}
+
+{% block body %}
+    <body>
+    <h1>{{ recipe.title }}</h1>
+    <p>by {{ recipe.author.username }}</p>
+
+    <h2>Steps:</h2>
+    <ol>
+        {% for step in recipe.steps %}
+            <li>{{ step.content }}</li>
+        {% endfor %}
+    </ol>
+
+    <h2>Comments:</h2>
+    {% if recipe.comments|length > 0 %}
+        <ul>
+            {% for comment in recipe.comments %}
+                <li>
+                    <p><strong>{{ comment.author.username }}</strong>: {{ comment.content }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+    </body>
+{% endblock %}
